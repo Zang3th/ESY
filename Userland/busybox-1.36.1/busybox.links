@@ -1,0 +1,15 @@
+/bin/cat
+/bin/echo
+/bin/ls
+/bin/mkdir
+/bin/pwd
+/bin/uname
+/bin/vi
+/usr/sbin/httpd
+/sbin/ifconfig
+/bin/kill
+/bin/ps
+/bin/ash
+/bin/sh
+/bin/bash
+/bin/mount
