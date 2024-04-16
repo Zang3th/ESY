@@ -2,7 +2,7 @@
  * Automatically generated C config: don't edit
  * Busybox version: 1.36.1
  */
-#define AUTOCONF_TIMESTAMP "2024-04-16 14:27:28 CEST"
+#define AUTOCONF_TIMESTAMP "2024-04-16 15:01:40 CEST"
 
 #define CONFIG_HAVE_DOT_CONFIG 1
 #define ENABLE_HAVE_DOT_CONFIG 1
@@ -1500,10 +1500,14 @@
 #define ENABLE_CHVT 0
 #define IF_CHVT(...)
 #define IF_NOT_CHVT(...) __VA_ARGS__
-#undef CONFIG_CLEAR
-#define ENABLE_CLEAR 0
-#define IF_CLEAR(...)
-#define IF_NOT_CLEAR(...) __VA_ARGS__
+#define CONFIG_CLEAR 1
+#define ENABLE_CLEAR 1
+#ifdef MAKE_SUID
+# define IF_CLEAR(...) __VA_ARGS__ "CONFIG_CLEAR"
+#else
+# define IF_CLEAR(...) __VA_ARGS__
+#endif
+#define IF_NOT_CLEAR(...)
 #undef CONFIG_DEALLOCVT
 #define ENABLE_DEALLOCVT 0
 #define IF_DEALLOCVT(...)

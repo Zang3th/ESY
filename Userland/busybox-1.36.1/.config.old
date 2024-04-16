@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.36.1
-# Tue Apr 16 14:17:40 2024
+# Tue Apr 16 14:27:28 2024
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -371,7 +371,7 @@ CONFIG_UNAME_OSNAME="GNU/Linux"
 CONFIG_DEFAULT_SETFONT_DIR=""
 # CONFIG_FEATURE_LOADFONT_PSF2 is not set
 # CONFIG_FEATURE_LOADFONT_RAW is not set
-# CONFIG_LOADKMAP is not set
+CONFIG_LOADKMAP=y
 # CONFIG_OPENVT is not set
 # CONFIG_RESET is not set
 # CONFIG_RESIZE is not set

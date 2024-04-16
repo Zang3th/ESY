@@ -433,6 +433,7 @@ util-linux/volume_id/built-in.o
 archival/lib.a
 archival/libarchive/lib.a
 console-tools/lib.a
+(console-tools/lib.a)clear.o
 (console-tools/lib.a)loadkmap.o
 coreutils/lib.a
 (coreutils/lib.a)cat.o

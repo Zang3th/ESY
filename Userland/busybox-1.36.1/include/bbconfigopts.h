@@ -322,7 +322,7 @@ static const char bbconfig_config[] ALIGN1 =
 "# CONFIG_WHOAMI is not set\n"
 "# CONFIG_YES is not set\n"
 "# CONFIG_CHVT is not set\n"
-"# CONFIG_CLEAR is not set\n"
+"CONFIG_CLEAR=y\n"
 "# CONFIG_DEALLOCVT is not set\n"
 "# CONFIG_DUMPKMAP is not set\n"
 "# CONFIG_FGCONSOLE is not set\n"

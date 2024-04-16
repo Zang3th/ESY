@@ -81,8 +81,8 @@ been enabled, more detailed usage information will also be available.
 
 Currently available applets include:
 
-	ash, bash, cat, echo, httpd, ifconfig, kill, loadkmap, ls, mkdir,
-	mount, ps, pwd, sh, uname, vi
+	ash, bash, cat, clear, echo, httpd, ifconfig, kill, loadkmap, ls,
+	mkdir, mount, ps, pwd, sh, uname, vi
 
 =head1 COMMAND DESCRIPTIONS
 
@@ -99,6 +99,10 @@ bash [-il] [-|+Cabefmnuvx] [-|+o OPT]... [-c 'SCRIPT' [ARG0 ARGS] | FILE ARGS | 
 =item B<cat>
 
 cat [-nbvteA] [FILE]...
+
+=item B<clear>
+
+clear
 
 =item B<echo>
 

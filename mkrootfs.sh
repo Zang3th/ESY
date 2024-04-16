@@ -13,8 +13,11 @@ sudo mount -o loop rootfs.img loop
 
 # Verzeichnisstruktur im eingehängten Dateisystem (Image) anlegen
 
-# Busybox generieren und vorab installieren
+# Busybox generieren
 make -C ./busybox-1.36.1 menuconfig
+
+# Bauen und installieren
+make -C ./busybox-1.36.1 && make -C ./busybox-1.36.1 install
 
 # Busyboxdateien ins Image installieren (kopieren)
 sudo rsync -a busybox-1.36.1/_install/ loop
@@ -39,5 +42,4 @@ sudo umount loop
 cd ..
 
 ./start_el.sh
-
 
