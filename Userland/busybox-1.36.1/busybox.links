@@ -1,3 +1,4 @@
+/sbin/loadkmap
 /bin/cat
 /bin/echo
 /bin/ls

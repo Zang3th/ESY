@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "BUSYBOX 1"
-.TH BUSYBOX 1 "2024-04-15" "version 1.36.1" "busybox"
+.TH BUSYBOX 1 "2024-04-16" "version 1.36.1" "busybox"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -220,8 +220,8 @@ been enabled, more detailed usage information will also be available.
 Currently available applets include:
 .PP
 .Vb 2
-\&        ash, bash, cat, echo, httpd, ifconfig, kill, ls, mkdir, mount, ps,
-\&        pwd, sh, uname, vi
+\&        ash, bash, cat, echo, httpd, ifconfig, kill, loadkmap, ls, mkdir,
+\&        mount, ps, pwd, sh, uname, vi
 .Ve
 .SH "COMMAND DESCRIPTIONS"
 .IX Header "COMMAND DESCRIPTIONS"
@@ -247,6 +247,9 @@ ifconfig [\-a] [\s-1IFACE\s0] [\s-1ADDRESS\s0]
 .IP "\fBkill\fR" 4
 .IX Item "kill"
 kill [\-l] [\-SIG] \s-1PID...\s0
+.IP "\fBloadkmap\fR" 4
+.IX Item "loadkmap"
+loadkmap < keymap
 .IP "\fBls\fR" 4
 .IX Item "ls"
 ls [\-1AaCxdLHRFplinshrSXvctu] [\-w \s-1WIDTH\s0] [\s-1FILE\s0]...

@@ -333,7 +333,7 @@ static const char bbconfig_config[] ALIGN1 =
 "CONFIG_DEFAULT_SETFONT_DIR=\"\"\n"
 "# CONFIG_FEATURE_LOADFONT_PSF2 is not set\n"
 "# CONFIG_FEATURE_LOADFONT_RAW is not set\n"
-"# CONFIG_LOADKMAP is not set\n"
+"CONFIG_LOADKMAP=y\n"
 "# CONFIG_OPENVT is not set\n"
 "# CONFIG_RESET is not set\n"
 "# CONFIG_RESIZE is not set\n"

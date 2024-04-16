@@ -2,7 +2,7 @@
  * Automatically generated C config: don't edit
  * Busybox version: 1.36.1
  */
-#define AUTOCONF_TIMESTAMP "2024-04-15 17:18:35 CEST"
+#define AUTOCONF_TIMESTAMP "2024-04-16 14:27:28 CEST"
 
 #define CONFIG_HAVE_DOT_CONFIG 1
 #define ENABLE_HAVE_DOT_CONFIG 1
@@ -1548,10 +1548,14 @@
 #define ENABLE_FEATURE_LOADFONT_RAW 0
 #define IF_FEATURE_LOADFONT_RAW(...)
 #define IF_NOT_FEATURE_LOADFONT_RAW(...) __VA_ARGS__
-#undef CONFIG_LOADKMAP
-#define ENABLE_LOADKMAP 0
-#define IF_LOADKMAP(...)
-#define IF_NOT_LOADKMAP(...) __VA_ARGS__
+#define CONFIG_LOADKMAP 1
+#define ENABLE_LOADKMAP 1
+#ifdef MAKE_SUID
+# define IF_LOADKMAP(...) __VA_ARGS__ "CONFIG_LOADKMAP"
+#else
+# define IF_LOADKMAP(...) __VA_ARGS__
+#endif
+#define IF_NOT_LOADKMAP(...)
 #undef CONFIG_OPENVT
 #define ENABLE_OPENVT 0
 #define IF_OPENVT(...)

@@ -1,6 +1,6 @@
 /* This is a generated file, don't edit */
 
-#define NUM_APPLETS 15
+#define NUM_APPLETS 16
 #define KNOWN_APPNAME_OFFSETS 0
 
 const char applet_names[] ALIGN1 = ""
@@ -11,6 +11,7 @@ const char applet_names[] ALIGN1 = ""
 "httpd" "\0"
 "ifconfig" "\0"
 "kill" "\0"
+"loadkmap" "\0"
 "ls" "\0"
 "mkdir" "\0"
 "mount" "\0"
@@ -28,14 +29,15 @@ const char applet_names[] ALIGN1 = ""
 #define APPLET_NO_httpd 4
 #define APPLET_NO_ifconfig 5
 #define APPLET_NO_kill 6
-#define APPLET_NO_ls 7
-#define APPLET_NO_mkdir 8
-#define APPLET_NO_mount 9
-#define APPLET_NO_ps 10
-#define APPLET_NO_pwd 11
-#define APPLET_NO_sh 12
-#define APPLET_NO_uname 13
-#define APPLET_NO_vi 14
+#define APPLET_NO_loadkmap 7
+#define APPLET_NO_ls 8
+#define APPLET_NO_mkdir 9
+#define APPLET_NO_mount 10
+#define APPLET_NO_ps 11
+#define APPLET_NO_pwd 12
+#define APPLET_NO_sh 13
+#define APPLET_NO_uname 14
+#define APPLET_NO_vi 15
 
 #ifndef SKIP_applet_main
 int (*const applet_main[])(int argc, char **argv) = {
@@ -46,6 +48,7 @@ echo_main,
 httpd_main,
 ifconfig_main,
 kill_main,
+loadkmap_main,
 ls_main,
 mkdir_main,
 mount_main,

@@ -76,8 +76,8 @@ COMMON OPTIONS
 COMMANDS
     Currently available applets include:
 
-            ash, bash, cat, echo, httpd, ifconfig, kill, ls, mkdir, mount, ps,
-            pwd, sh, uname, vi
+            ash, bash, cat, echo, httpd, ifconfig, kill, loadkmap, ls, mkdir,
+            mount, ps, pwd, sh, uname, vi
 
 COMMAND DESCRIPTIONS
     ash ash [-il] [-|+Cabefmnuvx] [-|+o OPT]... [-c 'SCRIPT' [ARG0 ARGS] |
@@ -101,6 +101,9 @@ COMMAND DESCRIPTIONS
 
     kill
         kill [-l] [-SIG] PID...
+
+    loadkmap
+        loadkmap < keymap
 
     ls  ls [-1AaCxdLHRFplinshrSXvctu] [-w WIDTH] [FILE]...
 
