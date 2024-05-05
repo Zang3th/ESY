@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# Start httpd...
+#
+
+case "$1" in
+  start)
+	printf "Starting network: "
+	busybox httpd -h /var/www -p 8080 -c /var/www | tee /var/www/log/httpd.log
+	# Funktioniert nur, wenn ich -c /var/www setze (!!!)
+	;;
+  stop)
+	printf "Stopping network: "
+	;;
+  restart|reload)
+	"$0" stop
+	"$0" start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+exit $?
