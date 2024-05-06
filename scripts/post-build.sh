@@ -27,6 +27,21 @@ mkdir -p ${TARGET_DIR}/var/www/log
 # sudo install -m 0777 ../webserver/ps.cgi ${TARGET_DIR}/var/www/cgi-bin/ps.cgi
 sudo install -m 0777 ../webserver/ps.cgi ${TARGET_DIR}/var/www/ps.cgi
 
-# MARK F: Firewall
+# MARK F: DHCP und AP
+echo "Kopiere *dnsmasq.conf* nach /etc/"
+sudo install -m 0755 -o root -g root ../target/dnsmasq.conf ${TARGET_DIR}/etc/dnsmasq.conf
+echo "Kopiere *wpa_supplicant.conf* nach /etc/"
+sudo install -m 0755 -o root -g root ../target/wpa_supplicant.conf ${TARGET_DIR}/etc/wpa_supplicant.conf
+echo "Kopiere *S61wpa* nach /etc/init.d"
+sudo install -m 0755 -o root -g root ../target/S61wpa ${TARGET_DIR}/etc/init.d/S61wpa
 
-# MARK G: Usermanagement
+# MARK G: Firewall
+echo "Kopiere *S99firewall* nach /etc/init.d"
+sudo install -m 0755 -o root -g root ../target/S99firewall ${TARGET_DIR}/etc/init.d/S99firewall
+
+# MARK H: IP-Forwarding
+echo "Kopiere *sysctl.conf* nach /etc/"
+sudo install -m 0755 -o root -g root ../target/sysctl.conf ${TARGET_DIR}/etc/sysctl.conf
+
+
+# MARK I: Usermanagement

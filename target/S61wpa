@@ -1,0 +1,3 @@
+ifconfig wlan0 192.168.42.1
+wpa_supplicant -B w -i wlan0 -c /etc/wpa_supplicant.conf
+# Explizite Angabe des Treibers loest Fehler aus
