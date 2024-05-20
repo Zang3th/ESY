@@ -26,12 +26,21 @@ static ssize_t driver_read( struct file *instanz, char __user *user,
 		size_t count, loff_t *offset )
 {
 	unsigned long bytes_to_copy, bytes_not_copied, bytes_copied;
+
+	static uint32_t counter = 0;
+
+    if(counter != 0)
+    {
+        return 0;
+    }
     
 	bytes_to_copy = strlen(hello_world)+1;
 	bytes_to_copy = min(bytes_to_copy, count);
 	bytes_not_copied = copy_to_user(user, hello_world, bytes_to_copy);
 	bytes_copied = bytes_to_copy - bytes_not_copied;	
 	*offset = *offset + bytes_copied;
+
+	counter++;
 	
 	return bytes_copied;
 }
@@ -45,7 +54,7 @@ static struct file_operations fops = {
 
 static int __init mod_init( void )
 {
-	if (alloc_chrdev_region(&hello_dev_number,0,1,"Hello")<0)
+	if (alloc_chrdev_region(&hello_dev_number,0,1,"Hello2")<0)
 		return -EIO;
 	driver_object = cdev_alloc(); /* Anmeldeobjekt reservieren */
 	if (driver_object==NULL)
@@ -55,13 +64,13 @@ static int __init mod_init( void )
 	if (cdev_add(driver_object,hello_dev_number,1))
 		goto free_cdev;
 	/* Eintrag im Sysfs, damit Udev den Geraetedateieintrag erzeugt. */
-	hello_class = class_create( "Hello" );
+	hello_class = class_create( "Hello2" );
 	if (IS_ERR( hello_class )) {
 		pr_err( "hello: no udev support\n");
 		goto free_cdev;
 	}
 	hello_dev = device_create( hello_class, NULL, hello_dev_number,
-			NULL, "%s", "hello" );
+			NULL, "%s", "hello2" );
 	if (IS_ERR( hello_dev )) {
 		pr_err( "hello: device_create failed\n");
 		goto free_class;

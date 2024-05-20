@@ -1,5 +1,5 @@
 ifneq ($(KERNELRELEASE),)
-obj-m	:= mod1.o mod2.o hello.o mynull.o myzero.o
+obj-m	:= mod1.o mod2.o hello.o hello2.o # mynull.o myzero.o
 
 else
 KDIR	:= /lib/modules/$(shell uname -r)/build
