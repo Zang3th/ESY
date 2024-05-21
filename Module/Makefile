@@ -1,13 +1,22 @@
-ifneq ($(KERNELRELEASE),)
-obj-m	:= mod1.o mod2.o hello.o hello2.o # mynull.o myzero.o
+CFLAGS=--sysroot $(SYSROOT) -g -Wall -static
+LDLIBS=-lrt
 
-else
-KDIR	:= /lib/modules/$(shell uname -r)/build
+CC = ~/Dev/ESY/buildroot/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-gcc-12.3.0.br_real
+AS = $(CROSS_COMPILE)as
+LAR = $(CROSS_COMPILE)ar
+NM = $(CROSS_COMPILE)nm
+LD = $(CROSS_COMPILE)ld
+OBJDUMP = $(CROSS_COMPILE)objdump
+OBJCOPY = $(CROSS_COMPILE)objcopy
+RANLIB = $(CROSS_COMPILE)ranlib
+STRIP = $(CROSS_COMPILE)strip
+
+obj-m	:= hello2.o
+
 PWD	:= $(shell pwd)
 
 default:
-	$(MAKE)	-C $(KDIR)	M=$(PWD) modules
-endif
+	$(MAKE)	-C $(KDIR)	M=$(PWD) modules	CC=${CC}
 
 clean:
 	rm -rf *.ko *.mod *.mod.* *.o modules.order .m* .M* .h*
