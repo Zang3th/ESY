@@ -43,5 +43,4 @@ sudo install -m 0755 -o root -g root ../target/S99firewall ${TARGET_DIR}/etc/ini
 echo "Kopiere *sysctl.conf* nach /etc/"
 sudo install -m 0755 -o root -g root ../target/sysctl.conf ${TARGET_DIR}/etc/sysctl.conf
 
-
 # MARK I: Usermanagement
