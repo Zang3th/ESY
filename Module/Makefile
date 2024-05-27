@@ -11,7 +11,7 @@ OBJCOPY = $(CROSS_COMPILE)objcopy
 RANLIB = $(CROSS_COMPILE)ranlib
 STRIP = $(CROSS_COMPILE)strip
 
-obj-m	:= hello2.o
+obj-m	:= led_one.o
 
 PWD	:= $(shell pwd)
 
@@ -19,5 +19,5 @@ default:
 	$(MAKE)	-C $(KDIR)	M=$(PWD) modules	CC=${CC}
 
 clean:
-	rm -rf *.ko *.mod *.mod.* *.o modules.order .m* .M* .h*
+	rm -rf *.ko *.mod *.mod.* *.o modules.order .m* .M* .h* .*.o.d .*.cmd
 	rm -rf Module.symvers
