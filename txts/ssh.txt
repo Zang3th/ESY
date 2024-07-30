@@ -1,4 +1,0 @@
-target: ifconfig eth0 192.168.42.69
-
-host: 	ssh root@192.168.42.69
-		pw: root
