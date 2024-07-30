@@ -1,1 +1,3 @@
-# Embedded Systems Informatik Master Sommersemester 2024
+# Embedded Systems (Master Informatik)
+
+Projektarbeit und Dokumentation im Sommersemester 2024
