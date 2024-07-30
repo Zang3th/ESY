@@ -7,6 +7,10 @@
 /bin/pwd
 /bin/uname
 /bin/vi
+/usr/sbin/adduser
+/usr/sbin/deluser
+/bin/login
+/usr/bin/passwd
 /usr/sbin/httpd
 /sbin/ifconfig
 /bin/kill

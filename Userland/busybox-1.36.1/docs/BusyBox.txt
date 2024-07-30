@@ -76,10 +76,14 @@ COMMON OPTIONS
 COMMANDS
     Currently available applets include:
 
-            ash, bash, cat, clear, echo, httpd, ifconfig, kill, loadkmap, ls,
-            mkdir, mount, ps, pwd, sh, uname, vi
+            adduser, ash, bash, cat, clear, deluser, echo, httpd, ifconfig,
+            kill, loadkmap, login, ls, mkdir, mount, passwd, ps, pwd, sh, uname,
+            vi
 
 COMMAND DESCRIPTIONS
+    adduser
+        adduser [OPTIONS] USER [GROUP]
+
     ash ash [-il] [-|+Cabefmnuvx] [-|+o OPT]... [-c 'SCRIPT' [ARG0 ARGS] |
         FILE ARGS | -s ARGS]
 
@@ -91,6 +95,9 @@ COMMAND DESCRIPTIONS
 
     clear
         clear
+
+    deluser
+        deluser [--remove-home] USER
 
     echo
         echo [-neE] [ARG]...
@@ -108,6 +115,9 @@ COMMAND DESCRIPTIONS
     loadkmap
         loadkmap < keymap
 
+    login
+        login [-p] [-h HOST] [[-f] USER]
+
     ls  ls [-1AaCxdLHRFplinshrSXvctu] [-w WIDTH] [FILE]...
 
     mkdir
@@ -115,6 +125,9 @@ COMMAND DESCRIPTIONS
 
     mount
         mount [OPTIONS] [-o OPT] DEVICE NODE
+
+    passwd
+        passwd [-a ALG] [-dlu] [USER]
 
     ps  ps
 

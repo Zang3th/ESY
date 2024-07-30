@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "BUSYBOX 1"
-.TH BUSYBOX 1 "2024-04-16" "version 1.36.1" "busybox"
+.TH BUSYBOX 1 "2024-07-30" "version 1.36.1" "busybox"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -219,12 +219,16 @@ been enabled, more detailed usage information will also be available.
 .IX Header "COMMANDS"
 Currently available applets include:
 .PP
-.Vb 2
-\&        ash, bash, cat, clear, echo, httpd, ifconfig, kill, loadkmap, ls,
-\&        mkdir, mount, ps, pwd, sh, uname, vi
+.Vb 3
+\&        adduser, ash, bash, cat, clear, deluser, echo, httpd, ifconfig,
+\&        kill, loadkmap, login, ls, mkdir, mount, passwd, ps, pwd, sh, uname,
+\&        vi
 .Ve
 .SH "COMMAND DESCRIPTIONS"
 .IX Header "COMMAND DESCRIPTIONS"
+.IP "\fBadduser\fR" 4
+.IX Item "adduser"
+adduser [\s-1OPTIONS\s0] \s-1USER\s0 [\s-1GROUP\s0]
 .IP "\fBash\fR" 4
 .IX Item "ash"
 ash [\-il] [\-|+Cabefmnuvx] [\-|+o \s-1OPT\s0]... [\-c '\s-1SCRIPT\s0' [\s-1ARG0 ARGS\s0] | \s-1FILE ARGS\s0 | \-s \s-1ARGS\s0]
@@ -237,6 +241,9 @@ cat [\-nbvteA] [\s-1FILE\s0]...
 .IP "\fBclear\fR" 4
 .IX Item "clear"
 clear
+.IP "\fBdeluser\fR" 4
+.IX Item "deluser"
+deluser [\-\-remove\-home] \s-1USER\s0
 .IP "\fBecho\fR" 4
 .IX Item "echo"
 echo [\-neE] [\s-1ARG\s0]...
@@ -253,6 +260,9 @@ kill [\-l] [\-SIG] \s-1PID...\s0
 .IP "\fBloadkmap\fR" 4
 .IX Item "loadkmap"
 loadkmap < keymap
+.IP "\fBlogin\fR" 4
+.IX Item "login"
+login [\-p] [\-h \s-1HOST\s0] [[\-f] \s-1USER\s0]
 .IP "\fBls\fR" 4
 .IX Item "ls"
 ls [\-1AaCxdLHRFplinshrSXvctu] [\-w \s-1WIDTH\s0] [\s-1FILE\s0]...
@@ -262,6 +272,9 @@ mkdir [\-m \s-1MODE\s0] [\-p] \s-1DIRECTORY...\s0
 .IP "\fBmount\fR" 4
 .IX Item "mount"
 mount [\s-1OPTIONS\s0] [\-o \s-1OPT\s0] \s-1DEVICE NODE\s0
+.IP "\fBpasswd\fR" 4
+.IX Item "passwd"
+passwd [\-a \s-1ALG\s0] [\-dlu] [\s-1USER\s0]
 .IP "\fBps\fR" 4
 .IX Item "ps"
 ps

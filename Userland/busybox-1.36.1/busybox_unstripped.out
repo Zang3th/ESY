@@ -310,6 +310,10 @@ attempt to open libpwdgrp/lib.a succeeded
 libpwdgrp/lib.a
 attempt to open loginutils/lib.a succeeded
 loginutils/lib.a
+(loginutils/lib.a)adduser.o
+(loginutils/lib.a)deluser.o
+(loginutils/lib.a)login.o
+(loginutils/lib.a)passwd.o
 attempt to open mailutils/lib.a succeeded
 mailutils/lib.a
 attempt to open miscutils/lib.a succeeded
@@ -437,6 +441,7 @@ console-tools/lib.a
 (console-tools/lib.a)loadkmap.o
 coreutils/lib.a
 (coreutils/lib.a)cat.o
+(coreutils/lib.a)chown.o
 (coreutils/lib.a)echo.o
 (coreutils/lib.a)ls.o
 (coreutils/lib.a)mkdir.o
@@ -452,22 +457,30 @@ findutils/lib.a
 init/lib.a
 libbb/lib.a
 (libbb/lib.a)auto_string.o
+(libbb/lib.a)bb_askpass.o
 (libbb/lib.a)bb_cat.o
+(libbb/lib.a)bb_do_delay.o
+(libbb/lib.a)bb_pwd.o
 (libbb/lib.a)bb_strtonum.o
+(libbb/lib.a)change_identity.o
 (libbb/lib.a)common_bufsiz.o
 (libbb/lib.a)concat_path_file.o
+(libbb/lib.a)copy_file.o
 (libbb/lib.a)copyfd.o
+(libbb/lib.a)correct_password.o
 (libbb/lib.a)endofname.o
 (libbb/lib.a)fflush_stdout_and_exit.o
 (libbb/lib.a)find_mount_point.o
 (libbb/lib.a)get_console.o
 (libbb/lib.a)get_line_from_file.o
+(libbb/lib.a)get_shell_name.o
 (libbb/lib.a)getopt32.o
 (libbb/lib.a)getopt_allopts.o
 (libbb/lib.a)hash_md5_sha.o
 (libbb/lib.a)human_readable.o
 (libbb/lib.a)in_ether.o
 (libbb/lib.a)inet_common.o
+(libbb/lib.a)inode_hash.o
 (libbb/lib.a)isdirectory.o
 (libbb/lib.a)lineedit.o
 (libbb/lib.a)lineedit_ptr_hack.o
@@ -478,6 +491,7 @@ libbb/lib.a
 (libbb/lib.a)makedev.o
 (libbb/lib.a)match_fstype.o
 (libbb/lib.a)mode_string.o
+(libbb/lib.a)nuke_str.o
 (libbb/lib.a)parse_mode.o
 (libbb/lib.a)percent_decode.o
 (libbb/lib.a)perror_msg.o
@@ -491,15 +505,20 @@ libbb/lib.a
 (libbb/lib.a)read_key.o
 (libbb/lib.a)read_printf.o
 (libbb/lib.a)recursive_action.o
+(libbb/lib.a)remove_file.o
+(libbb/lib.a)run_shell.o
 (libbb/lib.a)safe_gethostname.o
 (libbb/lib.a)safe_poll.o
 (libbb/lib.a)safe_strncpy.o
+(libbb/lib.a)securetty.o
+(libbb/lib.a)setup_environment.o
 (libbb/lib.a)signals.o
 (libbb/lib.a)simplify_path.o
 (libbb/lib.a)skip_whitespace.o
 (libbb/lib.a)sysconf.o
 (libbb/lib.a)time.o
 (libbb/lib.a)u_signal_names.o
+(libbb/lib.a)update_passwd.o
 (libbb/lib.a)uuencode.o
 (libbb/lib.a)verror_msg.o
 (libbb/lib.a)vfork_daemon_rexec.o
@@ -511,9 +530,12 @@ libbb/lib.a
 (libbb/lib.a)xgetcwd.o
 (libbb/lib.a)xreadlink.o
 (libbb/lib.a)xrealloc_vector.o
-(libbb/lib.a)bb_pwd.o
+(libbb/lib.a)ask_confirmation.o
 (libbb/lib.a)bb_qsort.o
 (libbb/lib.a)concat_subpath_file.o
+(libbb/lib.a)executable.o
+(libbb/lib.a)parse_config.o
+(libbb/lib.a)perror_nomsg.o
 libpwdgrp/lib.a
 (libpwdgrp/lib.a)uidgid_get.o
 loginutils/lib.a
@@ -707,6 +729,7 @@ attempt to open /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)canonicalize.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)grouping.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)asprintf.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getline.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)rename.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)isoc99_sscanf.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)vfscanf-internal.o
@@ -716,6 +739,7 @@ attempt to open /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iofflush.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iofopen.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iofwrite.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iogetdelim.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)ioputs.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)putchar_u.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)wfileops.o
@@ -727,6 +751,7 @@ attempt to open /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)vtables.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)ferror_u.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getc_u.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getchar_u.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)putc_u.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iofgets_u.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iofputs_u.o
@@ -935,13 +960,18 @@ attempt to open /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)opendir.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)closedir.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)readdir64.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)initgroups.o
+/usr/bin/ld: libbb/lib.a(change_identity.o): in function `change_identity':
+change_identity.c:(.text.change_identity+0x11): warning: Using 'initgroups' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)setgroups.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getgrgid.o
-/usr/bin/ld: libbb/lib.a(bb_pwd.o): in function `xgetgrgid':
-bb_pwd.c:(.text.xgetgrgid+0x8): warning: Using 'getgrgid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/usr/bin/ld: loginutils/lib.a(adduser.o): in function `adduser_main':
+adduser.c:(.text.adduser_main+0x20f): warning: Using 'getgrgid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getgrnam.o
-/usr/bin/ld: libbb/lib.a(bb_pwd.o): in function `xgetgrnam':
-bb_pwd.c:(.text.xgetgrnam+0x9): warning: Using 'getgrnam' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/usr/bin/ld: adduser.c:(.text.adduser_main+0x22d): warning: Using 'getgrnam' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getgrent_r.o
+/usr/bin/ld: libbb/lib.a(change_identity.o): in function `change_identity':
+change_identity.c:(.text.change_identity+0x18): warning: Using 'endgrent' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getgrgid_r.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getgrnam_r.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)grp-merge.o
@@ -949,11 +979,10 @@ bb_pwd.c:(.text.xgetgrnam+0x9): warning: Using 'getgrnam' in statically linked a
 /usr/bin/ld: libbb/lib.a(lineedit.o): in function `complete_username':
 lineedit.c:(.text.complete_username+0x23): warning: Using 'getpwent' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getpwnam.o
-/usr/bin/ld: networking/lib.a(httpd.o): in function `check_user_passwd':
-httpd.c:(.text.check_user_passwd+0xe0): warning: Using 'getpwnam' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/usr/bin/ld: loginutils/lib.a(adduser.o): in function `adduser_main':
+adduser.c:(.text.adduser_main+0x16b): warning: Using 'getpwnam' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getpwuid.o
-/usr/bin/ld: libbb/lib.a(lineedit.o): in function `get_user_strings':
-lineedit.c:(.text.get_user_strings+0x16): warning: Using 'getpwuid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/usr/bin/ld: adduser.c:(.text.adduser_main+0x1bd): warning: Using 'getpwuid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getpwent_r.o
 /usr/bin/ld: libbb/lib.a(lineedit.o): in function `complete_username':
 lineedit.c:(.text.complete_username+0x1e): warning: Using 'setpwent' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
@@ -965,6 +994,8 @@ lineedit.c:(.text.complete_username+0x1e): warning: Using 'setpwent' in statical
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)waitpid.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)wait4.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)alarm.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sleep.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nanosleep.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fork.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)_Fork.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)vfork.o
@@ -973,6 +1004,7 @@ lineedit.c:(.text.complete_username+0x1e): warning: Using 'setpwent' in statical
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)execve.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)execv.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)execvp.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)execlp.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)execvpe.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getpid.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getppid.o
@@ -985,6 +1017,7 @@ lineedit.c:(.text.complete_username+0x1e): warning: Using 'setpwent' in statical
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sysconf.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fnmatch.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getopt.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getopt1.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sched_yield.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getaddrinfo.o
 /usr/bin/ld: libbb/lib.a(xconnect.o): in function `str2sockaddr':
@@ -1006,6 +1039,7 @@ xconnect.c:(.text.str2sockaddr+0x15b): warning: Using 'getaddrinfo' in staticall
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)mknodat.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)umask.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)chmod.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fchmod.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)mkdir.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)open_2.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)open64.o
@@ -1022,10 +1056,16 @@ xconnect.c:(.text.str2sockaddr+0x15b): warning: Using 'getaddrinfo' in staticall
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)chdir.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fchdir.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getcwd.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)chown.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fchown.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)lchown.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)ttyname_r.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)isatty.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)link.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)symlink.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)readlink.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)unlink.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)rmdir.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)poll.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)close_nocancel.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fcntl_nocancel.o
@@ -1036,6 +1076,8 @@ xconnect.c:(.text.str2sockaddr+0x15b): warning: Using 'getaddrinfo' in staticall
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)tcsetattr.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)tcgetattr.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)tcsetpgrp.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)tcdrain.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)tcflush.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getrlimit64.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)setrlimit64.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)brk.o
@@ -1046,10 +1088,14 @@ xconnect.c:(.text.str2sockaddr+0x15b): warning: Using 'getaddrinfo' in staticall
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getpagesize.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getdtsz.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)chroot.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fsync.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)mkstemp.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)usleep.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)mntent.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)mntent_r.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)utimes.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)ftruncate64.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)syslog.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)syscall.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)mmap64.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)munmap.o
@@ -1076,6 +1122,7 @@ xconnect.c:(.text.str2sockaddr+0x15b): warning: Using 'getaddrinfo' in staticall
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getpeername.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getsockname.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)listen.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)send.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sendto.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)setsockopt.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)shutdown.o
@@ -1142,6 +1189,7 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)grp-lookup.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)pwd-lookup.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_module.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_action_parse.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_database.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_files_functions.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)files-proto.o
@@ -1161,6 +1209,7 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nscd_getgr_r.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nscd_gethst_r.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nscd_getai.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nscd_initgroups.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nscd_getserv_r.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nscd_helper.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)dl-debug.o
@@ -1240,8 +1289,8 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fprintf.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)snprintf.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sprintf.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)dprintf.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)tempname.o
-(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getline.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)funlockfile.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)vfprintf-internal.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)vfwprintf-internal.o
@@ -1253,8 +1302,8 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iofgetpos.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iofputs.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iofsetpos.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)ioftell.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)wfiledoalloc.o
-(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iogetdelim.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iogetline.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iopadn.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)ioseekoff.o
@@ -1264,6 +1313,7 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iowpadn.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)wgenops.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fseek.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)memstream.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)iovdprintf.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)vsnprintf.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)ftello.o
@@ -1331,6 +1381,7 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)wmemchr-evex-rtm.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)offtime.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)asctime.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)clock_nanosleep.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)rewinddir.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)getdents64.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)fdopendir.o
@@ -1348,14 +1399,15 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sched_primin.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sched_cpucount.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)openat64.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)utimensat.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)file_change_detection.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)pread64_nocancel.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)readv.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)writev.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)gethostname.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)clone.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)clone3.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)recvmsg.o
-(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)send.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)opensock.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sgetspent_r.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sgetsgent_r.o
@@ -1375,7 +1427,7 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_readline.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_parse_line_result.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_fgetent_r.o
-(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_action_parse.o
+(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_action.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_files_data.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)dl-close.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)dl-exception.o
@@ -1453,7 +1505,6 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)res_context_hostalias.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)res_query.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)res_send.o
-(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)nss_action.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)dl-call-libc-early-init.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)dl-deps.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)dl-execstack.o
@@ -1468,7 +1519,6 @@ xconnect.c:(.text.bb_lookup_port+0x39): warning: Using 'getservbyname' in static
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)ldbl2mpn.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)float1282mpn.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)setitimer.o
-(/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)writev.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)recvfrom.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)sendmmsg.o
 (/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/libc.a)dn_expand.o

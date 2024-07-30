@@ -60,13 +60,20 @@
 
 <p>Currently available applets include:</p>
 
-<pre><code>ash, bash, cat, clear, echo, httpd, ifconfig, kill, loadkmap, ls,
-mkdir, mount, ps, pwd, sh, uname, vi</code></pre>
+<pre><code>adduser, ash, bash, cat, clear, deluser, echo, httpd, ifconfig,
+kill, loadkmap, login, ls, mkdir, mount, passwd, ps, pwd, sh, uname,
+vi</code></pre>
 
 <h1 id="COMMAND-DESCRIPTIONS">COMMAND DESCRIPTIONS</h1>
 
 <dl>
 
+<dt id="adduser"><b>adduser</b></dt>
+<dd>
+
+<p>adduser [OPTIONS] USER [GROUP]</p>
+
+</dd>
 <dt id="ash"><b>ash</b></dt>
 <dd>
 
@@ -89,6 +96,12 @@ mkdir, mount, ps, pwd, sh, uname, vi</code></pre>
 <dd>
 
 <p>clear</p>
+
+</dd>
+<dt id="deluser"><b>deluser</b></dt>
+<dd>
+
+<p>deluser [--remove-home] USER</p>
 
 </dd>
 <dt id="echo"><b>echo</b></dt>
@@ -121,6 +134,12 @@ mkdir, mount, ps, pwd, sh, uname, vi</code></pre>
 <p>loadkmap &lt; keymap</p>
 
 </dd>
+<dt id="login"><b>login</b></dt>
+<dd>
+
+<p>login [-p] [-h HOST] [[-f] USER]</p>
+
+</dd>
 <dt id="ls"><b>ls</b></dt>
 <dd>
 
@@ -137,6 +156,12 @@ mkdir, mount, ps, pwd, sh, uname, vi</code></pre>
 <dd>
 
 <p>mount [OPTIONS] [-o OPT] DEVICE NODE</p>
+
+</dd>
+<dt id="passwd"><b>passwd</b></dt>
+<dd>
+
+<p>passwd [-a ALG] [-dlu] [USER]</p>
 
 </dd>
 <dt id="ps"><b>ps</b></dt>

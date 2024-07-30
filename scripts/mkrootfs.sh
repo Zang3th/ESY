@@ -39,7 +39,7 @@ sudo rsync -a busybox-1.36.1/_install/ loop
 # Image (Dateisystem) wieder aushaengen
 sudo umount loop
 
-cd ..
+cd $MAINDIR
 
-./start_el.sh
+# ./start_el.sh
 

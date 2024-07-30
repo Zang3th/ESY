@@ -305,6 +305,10 @@ deps_libbb/verror_msg.o := \
   /usr/include/x86_64-linux-gnu/bits/statfs.h \
   /usr/include/arpa/inet.h \
   include/xatonum.h \
+  /usr/include/syslog.h \
+  /usr/include/x86_64-linux-gnu/sys/syslog.h \
+  /usr/include/x86_64-linux-gnu/bits/syslog-path.h \
+  /usr/include/x86_64-linux-gnu/bits/syslog.h \
 
 libbb/verror_msg.o: $(deps_libbb/verror_msg.o)
 

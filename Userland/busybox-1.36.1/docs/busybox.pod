@@ -81,12 +81,17 @@ been enabled, more detailed usage information will also be available.
 
 Currently available applets include:
 
-	ash, bash, cat, clear, echo, httpd, ifconfig, kill, loadkmap, ls,
-	mkdir, mount, ps, pwd, sh, uname, vi
+	adduser, ash, bash, cat, clear, deluser, echo, httpd, ifconfig,
+	kill, loadkmap, login, ls, mkdir, mount, passwd, ps, pwd, sh, uname,
+	vi
 
 =head1 COMMAND DESCRIPTIONS
 
 =over 4
+
+=item B<adduser>
+
+adduser [OPTIONS] USER [GROUP]
 
 =item B<ash>
 
@@ -103,6 +108,10 @@ cat [-nbvteA] [FILE]...
 =item B<clear>
 
 clear
+
+=item B<deluser>
+
+deluser [--remove-home] USER
 
 =item B<echo>
 
@@ -125,6 +134,10 @@ kill [-l] [-SIG] PID...
 
 loadkmap < keymap
 
+=item B<login>
+
+login [-p] [-h HOST] [[-f] USER]
+
 =item B<ls>
 
 ls [-1AaCxdLHRFplinshrSXvctu] [-w WIDTH] [FILE]...
@@ -136,6 +149,10 @@ mkdir [-m MODE] [-p] DIRECTORY...
 =item B<mount>
 
 mount [OPTIONS] [-o OPT] DEVICE NODE
+
+=item B<passwd>
+
+passwd [-a ALG] [-dlu] [USER]
 
 =item B<ps>
 
