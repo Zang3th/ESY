@@ -1,0 +1,4 @@
+Hostname: lilibiti75
+Banner: Sommersemester 2024
+Login: root
+Passwort: root
