@@ -16,18 +16,17 @@
 - cmdline.txt nach /srv/tftp kopieren
   - Achtung Datei wurde verändert
 
-### Buildroot
+### Buildroot (initial)
 
 - Buildroot installieren
 - Pi4-Config erstellen
 - Userland konfigurieren
   - Identisch zu Aufgabenblatt 5 (inkl. dropbear für SSH)
-  - Kernelheader 6.6 (nur relevant für Buildroot-Kernel)
 
 #### Skripte
 
 - post-build.sh erstellen
-  - target/interfaces anlegen und auf target kopieren
+  - target/interfaces anlegen und auf Target kopieren
   - Relevant für SSH
 - post-image.sh erstellen
 - Skripte in Buildroot-Config hinterlegen
@@ -38,3 +37,10 @@
   - Funktioniert aktuell aber noch nicht (wird nicht ausgeführt?)
   - Werden automatisch alle Skripte aus init.d ausgeführt?
   - Wenn ja, muss das Format der Datei falsch sein!
+
+### WLAN
+
+- Buildroot-Konfiguration nach Aufgabenblatt 7
+- Skripte und Konfigurationsdateien für WPA, DHCP, Firewall und NAT anlegen und auf Target kopieren
+- Alter Kernel ist doch nicht WLAN-fähig + Config ist verloren gegangen
+  - Neubau von Kernel 6.6 (absichtliche Wahl einer älteren Version)

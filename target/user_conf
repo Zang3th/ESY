@@ -1,8 +1,0 @@
-#!/bin/sh
-
-USER="Krueger"
-PASS="Lsvfhfs"
-
-adduser --disabled-password --gecos "" $USER
-echo -e "$PASS\n$PASS" | passwd $USER
-printf "Added additional user"
