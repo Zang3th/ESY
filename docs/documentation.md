@@ -51,4 +51,7 @@
 - exports.sh erstellen und anpassen
 - Kernel für Pi 4 bauen (mit WLAN und modules support)
   - make bcm2709_defconfig
+  - Kernel-Config aus Moodle als Grundlage
   - time make -j24 zImage dtbs modules
+- hello.c crosskompilieren und unter /lib/modules ablegen
+- Startskript schreiben, welches Kernelmodul beim booten lädt

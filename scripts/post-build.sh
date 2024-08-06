@@ -35,5 +35,15 @@ sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S98firewall ${TARGET_DIR
 echo "Copy sysctl.conf to ${TARGET_DIR}/etc/sysctl.conf"
 sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/sysctl.conf ${TARGET_DIR}/etc/sysctl.conf
 
+# Kopiere Modul-Konfig
+echo "Copy S05modules to ${TARGET_DIR}/etc/init.d/S05modules"
+sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S05modules ${TARGET_DIR}/etc/init.d/S05modules
+
+# Kopiere Kernel-Modul
+KERNEL_MOD="hello.ko"
+echo "Copy ${KERNEL_MOD} to ${TARGET_DIR}/lib/modules"
+mkdir -p ${TARGET_DIR}/lib/modules
+cp ${MAIN_DIR}/modules/hello/${KERNEL_MOD} ${TARGET_DIR}/lib/modules/${KERNEL_MOD}
+
 echo "Finished executing: post-build.sh"
 echo "-----------------------------------------------------------------------"

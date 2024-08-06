@@ -1,0 +1,8 @@
+#!/bin/sh
+
+KERNEL_MOD="hello.ko"
+
+if [ "$1" == "start" ]; then
+    insmod /lib/modules/${KERNEL_MOD}
+    echo "Loaded kernel module: ${KERNEL_MOD}"
+fi
