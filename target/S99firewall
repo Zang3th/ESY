@@ -1,6 +1,0 @@
-#!/bin/sh
-
-if [ "$1" == "start" ]; then
-    iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-fi
-echo "Firewall activated"

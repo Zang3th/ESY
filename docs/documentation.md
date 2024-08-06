@@ -22,6 +22,7 @@
 - Pi4-Config erstellen
 - Userland konfigurieren
   - Identisch zu Aufgabenblatt 5 (inkl. dropbear für SSH)
+- Kernelerstellung abwählen
 
 #### Skripte
 
@@ -34,13 +35,20 @@
 ### Zusätzlicher User
 
 - user_conf-Skript hinzugefügt welches mit Ausführungsrechten nach init.d installiert wird
-  - Funktioniert aktuell aber noch nicht (wird nicht ausgeführt?)
-  - Werden automatisch alle Skripte aus init.d ausgeführt?
-  - Wenn ja, muss das Format der Datei falsch sein!
+  - Skript muss speziellen Namen tragen, hier "S99user"
 
 ### WLAN
 
 - Buildroot-Konfiguration nach Aufgabenblatt 7
 - Skripte und Konfigurationsdateien für WPA, DHCP, Firewall und NAT anlegen und auf Target kopieren
-- Alter Kernel ist doch nicht WLAN-fähig + Config ist verloren gegangen
-  - Neubau von Kernel 6.6 (absichtliche Wahl einer älteren Version)
+- Alter Kernel ist nicht WLAN-fähig
+  - Neubau von Kernel 6.6 mit WLAN-Support (absichtliche Wahl einer älteren Version)
+- Falls Fehlermeldung beim Booten auftaucht: brcmfmac: brcmf_set_channel: set chanspec 0x100d fail, reason -52
+  - Bekannter Fehler/Bug, bisher ohne Fix: [https://github.com/raspberrypi/linux/issues/6049]
+
+### Gerätetreiber
+
+- exports.sh erstellen und anpassen
+- Kernel für Pi 4 bauen (mit WLAN und modules support)
+  - make bcm2709_defconfig
+  - time make -j24 zImage dtbs modules

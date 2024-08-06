@@ -1,0 +1,10 @@
+#!/bin/sh
+
+USER="Krueger"
+PASS="Lsvfhfs"
+
+if [ "$1" == "start" ]; then
+    adduser --disabled-password --no-create-home --gecos "" ${USER} > /dev/null 2>&1
+    echo -e "${PASS}\n${PASS}" | passwd ${USER} > /dev/null 2>&1
+    echo "Added user: ${USER}"
+fi
