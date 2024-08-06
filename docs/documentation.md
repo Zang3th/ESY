@@ -55,3 +55,9 @@
   - time make -j24 zImage dtbs modules
 - hello.c crosskompilieren und unter /lib/modules ablegen
 - Startskript schreiben, welches Kernelmodul beim booten lädt
+
+#### Entwicklung des LED-Treibers
+
+- Entwicklung auf Host mit Deployment per scp
+  - scp led.ko root@192.168.42.69:/lib/modules
+  - Logging via: watch -n 1 dmesg

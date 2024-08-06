@@ -64,6 +64,7 @@ static int __init mod_init(void)
         pr_err("hello: device_create failed\n");
         goto free_class;
     }
+
     return 0;
 
 free_class:
@@ -72,6 +73,7 @@ free_cdev:
     kobject_put(&driver_object->kobj);
 free_device_number:
     unregister_chrdev_region(hello_dev_number, 1);
+
     return -EIO;
 }
 
@@ -84,6 +86,7 @@ static void __exit mod_exit(void)
     /* Abmelden des Treibers */
     cdev_del(driver_object);
     unregister_chrdev_region(hello_dev_number, 1);
+
     return;
 }
 
@@ -91,6 +94,6 @@ module_init(mod_init);
 module_exit(mod_exit);
 
 /* Metainformation */
-MODULE_AUTHOR("Tim Krüger");
+MODULE_AUTHOR("Tim Krueger");
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("A virtual device, which returns hello world.");
