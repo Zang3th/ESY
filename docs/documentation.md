@@ -61,3 +61,10 @@
 - Entwicklung auf Host mit Deployment per scp
   - scp led.ko root@192.168.42.69:/lib/modules
   - Logging via: watch -n 1 dmesg
+- consumer.h api mit Kernel 6.6 und 6.9 ausprobiert, beide Male kein Erfolg
+  - Ansatz über Device-Tree
+    - Device Tree Blob Overlay erstellen und GPIO PIN 23 definieren
+    - .dts zu .dtbo kompilieren
+    - .dtbo nach /srv/tftp/overlays verschieben
+    - Device Tree Blob in config.txt eintragen
+    - LED-Treiber auf DTBO-API anpassen

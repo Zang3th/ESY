@@ -1,0 +1,14 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    fragment@0 {
+        target = <&gpio>;
+        __overlay__ {
+            custom_gpio {
+                compatible = "custom_gpio";
+                my-gpios = <&gpio 23 0>;
+            };
+        };
+    };
+};
