@@ -149,4 +149,4 @@ module_exit(mod_exit);
 /* Metainformation */
 MODULE_AUTHOR("Tim Krueger");
 MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("A driver to toggle GPIO Port 23.");
+MODULE_DESCRIPTION("A driver to toggle GPIO Pin 23.");

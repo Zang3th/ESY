@@ -56,11 +56,11 @@
 - hello.c crosskompilieren und unter /lib/modules ablegen
 - Startskript schreiben, welches Kernelmodul beim booten lädt
 
-#### Entwicklung des LED-Treibers
+#### Entwicklung eines ersten LED-Treibers
 
 - Entwicklung auf Host mit Deployment per scp
   - scp led.ko root@192.168.42.69:/lib/modules
-  - Logging via: watch -n 1 dmesg
+  - Logging via: watch -n 1 dmesg oder tail -f /var/log/kern.log
 - consumer.h api mit Kernel 6.6 und 6.9 ausprobiert, beide Male kein Erfolg
   - Ansatz über Device-Tree
     - Device Tree Blob Overlay erstellen und GPIO PIN 23 definieren
@@ -68,3 +68,15 @@
     - .dtbo nach /srv/tftp/overlays verschieben
     - Device Tree Blob in config.txt eintragen
     - LED-Treiber auf DTBO-API anpassen
+
+#### Entwicklung eines fortgeschrittenen LED-Treibers
+
+- sig_driver_init erzeugt Kernel-Thread
+- Kernel-Thread realisiert Blinklicht
+  - Legt sich über wait_event_interruptible_timeout() schlafen
+  - ISR muss nicht implementiert werden
+  - Timeout des schlafens entspricht der Frequenz des Blinkens
+    - Wird in der globalen Variable freqKrueger festgelegt
+- sig_write erlaubt das Schreiben einer neuen Frequenz
+  - Der Zugriff auf die Variable muss effizient geschützt sein
+- sig_driver_exit killt den Kernel-Thread
