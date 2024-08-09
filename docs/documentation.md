@@ -69,14 +69,25 @@
     - Device Tree Blob in config.txt eintragen
     - LED-Treiber auf DTBO-API anpassen
 
-#### Entwicklung eines fortgeschrittenen LED-Treibers
+#### Entwicklung eines fortgeschrittenen LED-Treibers in eigenem Thread mit Ansteuerung via Gerätedatei
 
 - sig_driver_init erzeugt Kernel-Thread
+- user input wird über Gerätedatei entgegen genommen. Implementierung innerhalb von sig_write (mehr dazu unten)
+  - Werte können als normale Strings eingegeben werden (werden intern konvertiert)
+  - Der Wert 0 schaltet die LED aus
+  - Ein Wert zwischen 1-10 setzt die LED mit der entsprechenden Frequenz in Hertz
+  - Negative Werte oder Werte größer 10 werden verworfen
+  - Im Anschluss wird ein gültiger Wert der globalen Variable zugewiesen (der Zugriff ist dabei über ein Spinlock geschützt)
+  - Außerdem wird noch ein State gesetzt (auch geschützt), welcher angibt, dass der User neuen Input provided hat
 - Kernel-Thread realisiert Blinklicht
   - Legt sich über wait_event_interruptible_timeout() schlafen
-  - ISR muss nicht implementiert werden
-  - Timeout des schlafens entspricht der Frequenz des Blinkens
-    - Wird in der globalen Variable freqKrueger festgelegt
+    - Timeout des Schlafens entspricht der Frequenz des Blinkens (voraussgesetzt die LED soll aktuell überhaupt blinken / ist eingeschaltet)
+  - Ein Signal / eingehender Interrupt wird dabei nur gelogged, hat keine eigene Logik
+  - Falls die Condition (neuer User-Input) == true ist, wird die LED entsprechend an- oder ausgeschaltet und die bereitgestellte Frequenz/Schlafenszeit wird berechnet
 - sig_write erlaubt das Schreiben einer neuen Frequenz
-  - Der Zugriff auf die Variable muss effizient geschützt sein
+  - Der Zugriff auf die globale Variable ist dabei durch ein Spinlock geschützt
+  - User-Input wird entgegen genommen und konvertiert
+  - Wenn der Input korrekt ist, werden State und Frequency entsprechend gesetzt
+  - Dann wird der Thread via wake_up_interruptible aufgeweckt
 - sig_driver_exit killt den Kernel-Thread
+- Am Ende wird das crosskompilierte Modul noch unter /lib/modules auf das target abgelegt und beim Boot dynamisch geladen
