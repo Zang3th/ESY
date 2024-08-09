@@ -40,10 +40,10 @@ echo "Copy S05modules to ${TARGET_DIR}/etc/init.d/S05modules"
 sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S05modules ${TARGET_DIR}/etc/init.d/S05modules
 
 # Kopiere Kernel-Modul
-KERNEL_MOD="hello.ko"
+KERNEL_MOD="signalru.ko"
 echo "Copy ${KERNEL_MOD} to ${TARGET_DIR}/lib/modules"
 mkdir -p ${TARGET_DIR}/lib/modules
-cp ${MAIN_DIR}/modules/hello/${KERNEL_MOD} ${TARGET_DIR}/lib/modules/${KERNEL_MOD}
+cp ${MAIN_DIR}/modules/signalru/${KERNEL_MOD} ${TARGET_DIR}/lib/modules/${KERNEL_MOD}
 
 echo "Finished executing: post-build.sh"
 echo "-----------------------------------------------------------------------"
