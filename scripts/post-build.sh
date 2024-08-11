@@ -24,10 +24,10 @@ sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/dnsmasq.conf ${TARGET_DI
 echo "Copy wpa_supplicant.conf to ${TARGET_DIR}/etc/wpa_supplicant.conf"
 sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/wpa_supplicant.conf ${TARGET_DIR}/etc/wpa_supplicant.conf
 
-echo "Copy S97wpa to ${TARGET_DIR}/etc/init.d/S97wpa"
-sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S97wpa ${TARGET_DIR}/etc/init.d/S97wpa
+echo "Copy S95wpa to ${TARGET_DIR}/etc/init.d/S95wpa"
+sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S95wpa ${TARGET_DIR}/etc/init.d/S95wpa
 
-# Kopiere Firewall-Config
+# Kopiere Firewall-Konfig
 echo "Copy S98firewall to ${TARGET_DIR}/etc/init.d/S98firewall"
 sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S98firewall ${TARGET_DIR}/etc/init.d/S98firewall
 
@@ -44,6 +44,12 @@ KERNEL_MOD="signalru.ko"
 echo "Copy ${KERNEL_MOD} to ${TARGET_DIR}/lib/modules"
 mkdir -p ${TARGET_DIR}/lib/modules
 cp ${MAIN_DIR}/modules/signalru/${KERNEL_MOD} ${TARGET_DIR}/lib/modules/${KERNEL_MOD}
+
+# Kopiere MQTT-Konfig
+echo "Copy S96mosquitto to ${TARGET_DIR}/etc/init.d/S96mosquitto"
+sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S96mosquitto ${TARGET_DIR}/etc/init.d/S96mosquitto
+# Erstelle default logging file
+sudo touch ${TARGET_DIR}/var/log/mosquitto.log
 
 echo "Finished executing: post-build.sh"
 echo "-----------------------------------------------------------------------"

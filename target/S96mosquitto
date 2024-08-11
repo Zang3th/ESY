@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ "$1" == "start" ]; then
+    mosquitto -c /etc/mosquitto/mosquitto.conf -d
+    echo "Started mosquitto broker"
+fi

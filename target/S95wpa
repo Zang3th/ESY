@@ -4,4 +4,6 @@ if [ "$1" == "start" ]; then
     ifconfig wlan0 192.168.123.1
     wpa_supplicant -B w -i wlan0 -c /etc/wpa_supplicant.conf
     echo "wlan0 interface configured"
+    ifconfig lo up
+    echo "Activated loopback interface"
 fi

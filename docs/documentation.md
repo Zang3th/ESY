@@ -91,3 +91,19 @@
   - Dann wird der Thread via wake_up_interruptible aufgeweckt
 - sig_driver_exit killt den Kernel-Thread
 - Am Ende wird das crosskompilierte Modul noch unter /lib/modules auf das target abgelegt und beim Boot dynamisch geladen
+
+### MQTT
+
+- Mosquitto in buildroot aktivieren
+- mosqitto.conf bearbeiten
+  - Extensives Logging anschalten
+  - Anonymen Access zulassen
+  - listener 1883 192.168.123.1
+  - Nur ipv4-Zugriff über wlan0
+- Startskript erstellen, welches mosqitto beim Hochfahren startet
+  - Wichtig: Nach der wpa/wlan0-interface-Konfiguration
+- mosquitto_pub funktioniert nicht
+  - Lag an ausgeschaltetem Loopback-Interface
+  - S95wpa geändert, um dieses standardmäßig hochzufahren
+- Test-Publishing erfolgreich via: mosquitto_pub -h 192.168.123.1 -d -t 'test/topic' -m 'Hello World!' --repeat 100 --repeat-delay 60
+  - Sowohl pub, als auch sub werden erfolgreich in Datei gelogged
