@@ -2,6 +2,7 @@
 
 # General config
 BROKER="192.168.123.1"
+INTERVAL=60
 
 # Topic config
 HOST_TOPIC="system/hostname"
