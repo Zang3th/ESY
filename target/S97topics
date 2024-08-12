@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# General config
+BROKER="192.168.123.1"
+
+# Topic config
+HOST_TOPIC="system/hostname"
+HOST_MSG=$(hostname)
+eth0_TOPIC="system/ipaddress/eth0"
+eth0_MSG=$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d' ' -f1)
+wlan0_TOPIC="system/ipaddress/wlan0"
+wlan0_MSG=$(ifconfig wlan0 | grep 'inet addr:' | cut -d: -f2 | cut -d' ' -f1)
+UP_TOPIC="system/uptime"
+DATE_TOPIC="system/date"
+DATE_MSG=$(date +"%Y-%m-%d")
+NAME_TOPIC="system/Krueger"
+NAME_MSG="Krueger"
+
+publish_topics()
+{
+    while true; do
+        mosquitto_pub -h ${BROKER} -d -t ${HOST_TOPIC}  -m ${HOST_MSG}  > /dev/null 2>&1
+        mosquitto_pub -h ${BROKER} -d -t ${eth0_TOPIC}  -m ${eth0_MSG}  > /dev/null 2>&1
+        mosquitto_pub -h ${BROKER} -d -t ${wlan0_TOPIC} -m ${wlan0_MSG} > /dev/null 2>&1
+        mosquitto_pub -h ${BROKER} -d -t ${DATE_TOPIC}  -m ${DATE_MSG}  > /dev/null 2>&1
+        mosquitto_pub -h ${BROKER} -d -t ${NAME_TOPIC}  -m ${NAME_MSG}  > /dev/null 2>&1
+        mosquitto_pub -h ${BROKER} -d -t ${UP_TOPIC}    -m $(uptime | cut -d' ' -f2) > /dev/null 2>&1
+        sleep ${INTERVAL}
+    done &
+}
+
+if [ "$1" == "start" ]; then
+    publish_topics
+    echo "Started topic publishing service"
+fi

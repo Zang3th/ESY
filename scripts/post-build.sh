@@ -45,11 +45,19 @@ echo "Copy ${KERNEL_MOD} to ${TARGET_DIR}/lib/modules"
 mkdir -p ${TARGET_DIR}/lib/modules
 cp ${MAIN_DIR}/modules/signalru/${KERNEL_MOD} ${TARGET_DIR}/lib/modules/${KERNEL_MOD}
 
+# Kopiere moquitto.conf
+echo "Copy mosquitto.conf to ${TARGET_DIR}/etc/mosquitto/mosquitto.conf"
+sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/mosquitto.conf ${TARGET_DIR}/etc/mosquitto/mosquitto.conf
+
 # Kopiere MQTT-Konfig
 echo "Copy S96mosquitto to ${TARGET_DIR}/etc/init.d/S96mosquitto"
 sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S96mosquitto ${TARGET_DIR}/etc/init.d/S96mosquitto
 # Erstelle default logging file
 sudo touch ${TARGET_DIR}/var/log/mosquitto.log
+
+# Kopiere Skript zum publishen der Topics
+echo "Copy S97topics to ${TARGET_DIR}/etc/init.d/S97topics"
+sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S97topics ${TARGET_DIR}/etc/init.d/S97topics
 
 echo "Finished executing: post-build.sh"
 echo "-----------------------------------------------------------------------"

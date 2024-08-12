@@ -95,15 +95,20 @@
 ### MQTT
 
 - Mosquitto in buildroot aktivieren
-- mosqitto.conf bearbeiten
+- Default mosqitto.conf besorgen
+  - In lokalem Entwicklungsverzeichnis bearbeiten und dann aufs target kopieren
   - Extensives Logging anschalten
   - Anonymen Access zulassen
   - listener 1883 192.168.123.1
-  - Nur ipv4-Zugriff über wlan0
-- Startskript erstellen, welches mosqitto beim Hochfahren startet
-  - Wichtig: Nach der wpa/wlan0-interface-Konfiguration
+  - Nur ipv4-Zugriff und nur über wlan0 interface
+- Startskript erstellen, welches mosquitto beim Hochfahren startet
+  - Wichtig: Erst nach der wpa/wlan0-interface-Konfiguration!
 - mosquitto_pub funktioniert nicht
   - Lag an ausgeschaltetem Loopback-Interface
   - S95wpa geändert, um dieses standardmäßig hochzufahren
 - Test-Publishing erfolgreich via: mosquitto_pub -h 192.168.123.1 -d -t 'test/topic' -m 'Hello World!' --repeat 100 --repeat-delay 60
   - Sowohl pub, als auch sub werden erfolgreich in Datei gelogged
+- Skript schreiben, welches in regelmäßigen Abständen (alle 60 Sekunden) verschiedene topics published
+  - --repeat mit --repeat-delay funktioniert nicht, da nur die initialen Werte für die Variablen genommen werden
+  - Das Kommando wird also nicht nochmal "richtig" ausgeführt
+  - Lösung über while-true-Loop mit sleep
