@@ -3,6 +3,7 @@
 # General config
 BROKER="192.168.123.1"
 INTERVAL=60
+LED_SCRIPT_PATH="/etc/ctrl_led_ru.sh"
 
 # Topic config
 HOST_TOPIC="system/hostname"
@@ -16,6 +17,7 @@ DATE_TOPIC="system/date"
 DATE_MSG=$(date +"%Y-%m-%d")
 NAME_TOPIC="system/Krueger"
 NAME_MSG="Krueger"
+CTRL_LED_TOPIC="appl/frequency_set"
 
 publish_topics()
 {
@@ -33,4 +35,6 @@ publish_topics()
 if [ "$1" == "start" ]; then
     publish_topics
     echo "Started topic publishing service"
+    (mosquitto_sub -h ${BROKER} -d -t ${CTRL_LED_TOPIC} | ${LED_SCRIPT_PATH}) &
+    echo "Piped topic ${CTRL_LED_TOPIC} into script"
 fi

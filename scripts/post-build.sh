@@ -59,5 +59,9 @@ sudo touch ${TARGET_DIR}/var/log/mosquitto.log
 echo "Copy S97topics to ${TARGET_DIR}/etc/init.d/S97topics"
 sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/S97topics ${TARGET_DIR}/etc/init.d/S97topics
 
+# Kopiere Skript zur Ansteuerung der LED
+echo "Copy ctrl_led_ru.sh to ${TARGET_DIR}/etc/ctrl_led_ru.sh"
+sudo install -m 0755 -o root -g root ${MAIN_DIR}/target/ctrl_led_ru.sh ${TARGET_DIR}/etc/ctrl_led_ru.sh
+
 echo "Finished executing: post-build.sh"
 echo "-----------------------------------------------------------------------"

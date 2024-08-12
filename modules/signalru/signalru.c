@@ -240,7 +240,7 @@ static int __init sig_driver_init(void)
     }
 
     // Create device
-    if(IS_ERR(sig_dev = device_create(dev_class, NULL, dev_nr, NULL, "%s", "led_on_off_ru")))
+    if(IS_ERR(sig_dev = device_create(dev_class, NULL, dev_nr, NULL, "%s", "led_onoff_ru")))
     {
         pr_err("signalru: device_create failed ...\n");
         goto free_class;
