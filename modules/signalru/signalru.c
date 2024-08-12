@@ -19,7 +19,9 @@ static struct class*       dev_class;
 static struct device*      sig_dev;
 static struct task_struct* blink_thread;
 static struct gpio_desc*   gpio_desc;
-static long int            freqKrueger;
+
+static long int            freqKrueger, access_counter;
+static char                freq_buffer[BUFFER_SIZE];
 static bool                new_input = false;
 static wait_queue_head_t   freq_wq;
 
@@ -162,6 +164,7 @@ static void validate_user_input(char* buffer, unsigned long buf_size)
 static int sig_open(struct inode* dev_file, struct file* instance)
 {
     pr_info("signalru: Device File opened ...\n");
+    access_counter = 0;
     return 0;
 }
 
@@ -173,8 +176,42 @@ static int sig_close(struct inode* dev_file, struct file* instance)
 
 static ssize_t sig_read(struct file* instance, char __user* user, size_t count, loff_t* offset)
 {
+    // To only return something once per opening
+    if(access_counter != 0)
+    {
+        return 0;
+    }
+    access_counter++;
+
     pr_info("signalru: sig_read start ...\n");
-    return 0;
+
+    unsigned long to_copy = BUFFER_SIZE, not_copied, delta;
+    long int value;
+    memset(freq_buffer, 0, BUFFER_SIZE);
+
+    // Enter critical section: Get global variable
+    spin_lock(&freq_lock);
+    value = freqKrueger;
+    spin_unlock(&freq_lock);
+
+    // Get string representation of the value
+    int str_len = snprintf(freq_buffer, to_copy, "%ld\n", value);
+
+    // If convertion succeeded
+    if(str_len >= 0 && str_len < to_copy)
+    {
+        // Copy data to user
+        not_copied = copy_to_user(user, freq_buffer, to_copy);
+
+        // Calculate delta
+        delta = to_copy - not_copied;
+        pr_info("signalru: bytes copied = %ld (%ld bytes were not copied) ...\n", delta, not_copied);
+        *offset += delta;
+
+        return delta;
+    }
+
+    return -EIO;
 }
 
 static ssize_t sig_write(struct file* instance, const char __user* user, size_t count, loff_t* offset)
@@ -182,22 +219,21 @@ static ssize_t sig_write(struct file* instance, const char __user* user, size_t 
     pr_info("signalru: sig_write start ...\n");
 
     unsigned long to_copy, not_copied, delta;
-
-    char buffer[BUFFER_SIZE];
-    memset(buffer, 0, BUFFER_SIZE);
+    memset(freq_buffer, 0, BUFFER_SIZE);
 
     // Get amount of bytes to copy
     to_copy = min(count, BUFFER_SIZE);
 
     // Copy data from user
-    not_copied = copy_from_user(buffer, user, to_copy);
+    not_copied = copy_from_user(freq_buffer, user, to_copy);
 
     // Calculate delta
     delta = to_copy - not_copied;
     pr_info("signalru: bytes copied = %ld (%ld bytes were not copied) ...\n", delta, not_copied);
+    *offset += delta;
 
     // Validate user input and set global value accordingly
-    validate_user_input(&buffer[0], BUFFER_SIZE);
+    validate_user_input(&freq_buffer[0], BUFFER_SIZE);
 
     return count;
 }

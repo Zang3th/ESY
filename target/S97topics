@@ -17,7 +17,8 @@ DATE_TOPIC="system/date"
 DATE_MSG=$(date +"%Y-%m-%d")
 NAME_TOPIC="system/Krueger"
 NAME_MSG="Krueger"
-CTRL_LED_TOPIC="appl/frequency_set"
+LED_TOPIC="appl/frequency"
+LED_TOPIC_CTRL="appl/frequency_set"
 
 publish_topics()
 {
@@ -28,6 +29,7 @@ publish_topics()
         mosquitto_pub -h ${BROKER} -d -t ${DATE_TOPIC}  -m ${DATE_MSG}  > /dev/null 2>&1
         mosquitto_pub -h ${BROKER} -d -t ${NAME_TOPIC}  -m ${NAME_MSG}  > /dev/null 2>&1
         mosquitto_pub -h ${BROKER} -d -t ${UP_TOPIC}    -m $(uptime | cut -d' ' -f2) > /dev/null 2>&1
+        mosquitto_pub -h ${BROKER} -d -t ${LED_TOPIC}   -m $(cat /dev/led_onoff_ru)  > /dev/null 2>&1
         sleep ${INTERVAL}
     done &
 }
@@ -35,6 +37,6 @@ publish_topics()
 if [ "$1" == "start" ]; then
     publish_topics
     echo "Started topic publishing service"
-    (mosquitto_sub -h ${BROKER} -d -t ${CTRL_LED_TOPIC} | ${LED_SCRIPT_PATH}) &
-    echo "Piped topic ${CTRL_LED_TOPIC} into script"
+    (mosquitto_sub -h ${BROKER} -d -t ${LED_TOPIC_CTRL} | ${LED_SCRIPT_PATH}) &
+    echo "Piped topic ${LED_TOPIC_CTRL} into script"
 fi
