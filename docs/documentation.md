@@ -112,3 +112,6 @@
   - --repeat mit --repeat-delay funktioniert nicht, da nur die initialen Werte für die Variablen genommen werden
   - Das Kommando wird also nicht nochmal "richtig" ausgeführt
   - Lösung über while-true-Loop mit sleep
+- Anpassung des signalru-Treibers durch Ergänzung einer read-Funktion
+  - Einmalige Zurückgabe des Frequenzwertes
+  - Ergänzung des topics in S97topics
