@@ -57,7 +57,7 @@ Als Teil dieses Projekts werden alle notwendigen Dateien (Dokumentation, Configs
 - *configs/*: Verzeichnis für die Buildroot- und Kernel-Konfigurationsdateien
 - *devicetree/*: Verzeichnis für den Device-Tree-Blob zur Ansteuerung der GPIOs
 - *docs/*: Dokumentation des Projekts inkl. dem Abbildungsverzeichnis *res/*
-- *kernel/*: Verschiedenen Kernelversionen, welche im Laufe des Projekts entstanden sind
+- *kernel/*: Bereits vorkompilierte Kernel
   - Genaue Hinweise folgen in Kapitel 3.4
 - *modules/*: Der Treiber bzw. das Kernelmodul zur Ansteuerung der LED
   - Genaue Hinweise folgen in Kapitel 3.7
@@ -93,13 +93,69 @@ Es ist außerdem empfehlenswert das serielle Interface des Pi's für Output und 
 
 ## Buildroot
 
+Als Systembuilder wird in diesem Projekt *Buildroot* verwendet. *Buildroot* ist im Endeffekt eine Sammlung von Makefiles, welche einem in einem kernelähnlichen Interface verschiedene Konfigurationsoptionen bieten. Buildroot wurde in diesem Projekt ausschließlich zum Bau des Userlands verwendet, der Kernel wurde *per Hand* kompiliert. Die exakten Konfigurationsschritte werden an dieser Stelle ausgelassen, da die Buildroot-Config zur Verfügung gestellt wird.
+
+### Installationshinweise
+
+- Buildroot installieren
+  - Git-Repository nach *buildroot/* clonen
+- *config/config.buildroot* nach *buildroot/* kopieren
+- *make menuconfig* aufrufen und Auswahl speichern
+- Durch ein anschließendes Aufrufen von *make* wird das Userland gebaut
+- Die Skripte *post-build.sh* und *post-image.sh* klinken sich in diesen Prozess ein und kopieren die notwendigen Dateien an die richtigen Stellen im Image des TFTP-Servers
+- **Achtung:** Auf korrekte Pfade achten
+  - Die Pfade zu den Skripten können per *make menuconfig* geändert werden
+  - Die Pfade innerhalb der Skripte müssen natürlich ebenfalls stimmen (Root-Verzeichnis oben im Skript als Variable hinterlegt)
+  - Extensives Logging ist aktiviert und sollte an dieser Stelle schnell Auskunft geben können
+
 ## Kernel
 
+Ein bereits crosskompilierter Kernel, welcher WLAN- und Modulefähig ist, findet sich im Verzeichnis *kernel/*. Es handel sich dabei um einen Kernel mit der Version 6.6.4. Dieser Kernel lief in meinen Tests am besten. Speziell die neueren Kernelversionen >= 6.9 haben bei mir Probleme gemacht. Bspw. lief der Arbeitsspeicher auf meiner Maschine beim Kompilieren von Kernel 6.9.1 voll, was schließlich zu einem Crash führte.
+
+### Installationshinweise
+
+Falls Sie einen eigenen Kernel für dieses Projekt kompilieren wollen, stehen alle notwendigen Dateien zur Verfügung.
+
+- Clonen des entsprechenden Kernels von Git
+- Hinterlegen der notwendigen Umgebungsvariablen durch: *source /scripts/exports.sh*
+- *config/config.linux* ins Kernel-Verzeichnis kopieren
+- Kompilieren durch: *time make -j ihr_name dtbs modules*
+- Der neue Kernel muss dann noch namentlich im *post-image.sh* Skript hinterlegt werden
+- Beim nächsten Aufruf von *make* innerhalb von *Buildroot* wird dieser dann kopiert
+
 ## WLAN-AP
+
+Ein Teil der Aufgabenstellung war die Konfiguration des Raspberry Pi's als WLAN Accesspoint. Der Kernel und das Userland wurden dafür entsprechend präperiert. Aufgespannt wird das WLAN *VimIsTheBest*. Skripte und Konfigurationsdateien finden sich im Verzeichnis *target/*. Alle Dateien werden nach *init.d* kopiert und automatisch beim Bootvorgang gestartet.
+
+Die WLAN-AP-Konfiguration umfasst:
+
+- WPA
+- DNS und DHCP
+- Firewall mit NAT und IP-Forwarding
+
+Unter Umständen taucht beim Booten die Fehlermeldung *brcmfmac: brcmf_set_channel: set chanspec 0x100d fail, reason -52* auf. Diese wird von der WLAN-Hardware ausgelöst.
+
+- Dabei handelt es sich um einen bekannten Bug, bisher ohne richtigen Fix:
+  - Siehe z.B. [https://github.com/raspberrypi/linux/issues/6049]
+- Dieser betriff sowohl Raspberry Pi's der Version 4 als auch der Version 5
+- Er tritt, laut meiner Recherche, seit den Kernelversionen >= 6.3 auf
+- Der Bug hat aktuell keinen Effekt auf uns, sollte aber beobachtet werden
+
+\pagebreak
 
 ## Hardwareaufbau
 
 ![Hardwareaufbau](res/hardware_aufbau.png)
+
+Der Hardware- bzw. Schaltungsaufbau kann *Abbildung 2* entnommen werden. Es handelt sich dabei um eine sehr einfache Schaltung welche Demonstrationszwecken dient. Folgende Aspekte können durch den Aufbau demonstriert werden:
+
+- Logging via serieller Schnittstelle
+- Booting via Netzwerk (TFTP)
+- Ansteuerung eines GPIO Pin's mittels des Device-Tree's
+  - Später: Integration in Kernelmodul und Fernsteuerung per MQTT
+- Der Pi ist in meinem Fall noch mit einem optionalen Gehäuse ausgestattet, welches Schutz- und Kühlungszwecken dient
+
+\pagebreak
 
 ## Gerätetreiber
 
