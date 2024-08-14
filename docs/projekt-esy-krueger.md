@@ -32,7 +32,7 @@ Datum: 13.08.2024
 
 \pagebreak
 
-# Installationsanleitung
+# Installation
 
 ## Projektstruktur
 
@@ -159,25 +159,72 @@ Der Hardware- bzw. Schaltungsaufbau kann *Abbildung 2* entnommen werden. Es hand
 
 ## Gerätetreiber
 
-## MQTT-Konfiguration
+Bei dem in diesem Projekt integrierten Gerätetreiber handelt es sich um ein Kernelmodul, welches die Ansteuerung einer LED über den Device-Tree implementiert.
 
-## Anderes
+Im folgenden wird kurz auf einige entwicklungstechnische Aspekte eingegangen, bevor Implementierung und Verwendung des Treibers erläutert werden.
+
+### Allgemeines
+
+Der Gerätetreiber *signalru.c* befindet sich im Verzeichnis */modules/signalru/*. Zur Neukompilierung wird ein Makefile bereitgestellt. Zuvor müssen, identisch wie beim Kompilieren des Kernels, die Umgebungsvariablen zum Crosskompilieren geladen werden (via *exports.sh*). Das generierte Kernelmodul wird beim Neuladen der Buildroot-Config (via *make*) automatisch gefetched und nach /lib/modules/ kopiert. Ein Startskript, welches das Kernelmodul automatisch beim Booten lädt, wird ebenfalls bereitgestellt. Bei Umbenennung oder Ergänzung von neuen Kernelmodulen müssen diese Skripte entsprechend angepasst werden.
+
+Wie bereits erwähnt werden die GPIOs in diesem Projekt über den Device-Tree angesprochen. Die zuvor verwendete GPIO-API (*gpio_to_desc* und Kollegen) scheint deprecated zu sein. Auch mit Kernelversion 6.6 funktionierte bei mir nur die Version über den Device-Tree.
+
+Zunächst wird ein Device-Tree-Blob-Overlay erstellt, welches GPIO PIN 23 benennt (*/devicetree/custom_gpio.dts*). Diese Datei wird dann mit dem Device-Tree-Compiler kompiliert (*devicetree/custom_gpio.dtbo*) und nach */srv/tftp/overlays* kopiert. Das Device-Tree-Blob-Overlay muss außerdem noch in die */txts/config.txt* eingetragen werden.
+
+### Implementierung
+
+Die Implementierung des Kernelmoduls bestand aus dem Schreiben der folgenden Funktionen:
+
+- Funktionen für Konfiguration und Speicherfreigabe der GPIO's
+- *sig_driver_init* Funktion welche die grundlegende Initialisierung aller benötigten Komponenten beim Laden des Treibers vornimmt
+  - Character device
+  - Waitqueue
+  - Kernelthread
+  - ...
+- *sig_driver_exit* Funktion welche alles wieder deallokiert und freigibt
+- *sig_write* Funktion welche das Schreiben auf die Gerätedatei regelt
+  - User-Input zum Setzen der LED-Frequenz
+- *sig_read* Funktion welche das Lesen der Gerätedatei regelt
+  - Ausgabe der aktuellen LED-Frequenz an den User
+- *blink_thread_func* Kernelthread-Funktion welche in Abhängigkeit vom User-Input eine LED, mit einer bestimmten Frequenz, toggelt
+
+Um einen gesicherten asynchronen Zugriff auf die globale Frequenzvariable zu gewährleisten, wurde ein Spinlock verwendet.
+
+Realisiert wird das Blinken bzw. Toggeln der LED durch ein Schlafenlegen des Kernelthreads via *wait_event_interruptible_timeout()*. Der Timeout des Schlafens entspricht der Frequenz des Blinkens, vorausgesetzt diese ist eingeschaltet und soll überhaupt blinken (mehr zur genauen Verwendung bzw. den erlaubten Inputs im nächsten Abschnitt). Falls neuer, gültiger User-Input bereitgestellt wurde, wird die LED entsprechend an- oder ausgeschaltet und die neue Frequenz bzw. Schlafszeit wird berechnet.
+
+*sig_write* erlaubt das An- und Ausschalten der LED, sowie das Setzen einer Blinkfrequenz. User-Input wird dabei als String entgegen genommen und intern konvertiert. Falls die Eingabe valide ist werden eine Zustandvariable und die Frequenz entsprechend neu gesetzt. Erst dann wird der Kernelthread via *wake_up_interruptible()* aufgeweckt.
+
+\pagebreak
+
+### Verwendung
+
+Die Verwendung des Treibers läuft über die bereitgestellte Gerätedatei *led_onoff_ru*. Wie bereits erwähnt können Strings in diese gepiped werden, der Input wird intern kovertiert und validiert.
+
+- Der Wert **0** schaltet die LED aus
+- Ein Wert zwischen **1-10** schaltet die LED mit der entsprechenden Frequenz in Hertz an
+- Negative Werte und Werte größer **10** werden verworfen
+
+Die Gerätedatei kann außerdem ausgelesen werden. In diesem Fall returned sie die aktuell gesetzte Frequenz.
+
+## MQTT-Konfiguration
 
 # Systemtest
 
 ## Testplan
 
+Der Testplan ist relativ simpel. Im Sinne von *Rapid Prototyping* werden die Anforderungen an eine Komponente verschriftlicht (hier Teil der Aufgabenstellung) und dann wird diese implementiert. Im Anschluss wird geprüft ob alle Anforderungen erfüllt wurden und keine ungewünschten Nebeneffekte aufgetreten sind.
+
 ## Komponententest
 
 ### Boot und Entwicklung
-
-### LED-Treiber
 
 ### WLAN
 
 ![WLAN-Test](res/wlan_test.png)
 
 \pagebreak
+
+### LED-Treiber
 
 ### MQTT
 
