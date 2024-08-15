@@ -67,7 +67,7 @@ static int blink_thread_func(void* params)
         // Condition is true
         else
         {
-            // Turn of LED
+            // Turn off LED
             if(provided_freq == 0)
             {
                 led_on = false;
