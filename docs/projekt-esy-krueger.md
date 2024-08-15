@@ -26,9 +26,17 @@ Datum: 13.08.2024
 
 # Einleitung
 
+Das hier beschriebene Projekt im Rahmen des Moduls "Eingebettete Systeme" bietet die Möglichkeit, praxisnah die Entwicklung eines vollständig angepassten Smarthome-Gateways „von der Pike auf“ zu erlernen.
+
+Das Projekt bildet den Abschluss des Moduls und integriert alle während des Semesters erarbeiteten Komponenten und kennengelernten Technologien in eine eigenständige Praxisarbeit.
+
 ## Motivation
 
+Während der Entwicklung wird Wissen über Linux, Buildroot, Netzwerkkonfiguration, das Kommunikationsprotokoll MQTT und viele weitere Technologien vertieft. Die Herausforderung besteht darin, ein vollständiges System auf einem Raspberry Pi zu implementieren, das von Grund auf neu konfiguriert und entwickelt wurde. Dies umfasst sowohl die Konfiguration und Kompilierung eines Linux-Kernels und Userlands als auch die Implementierung spezifischer Treiber und Dienste, die das System funktionsfähig machen.
+
 ## Aufgabenstellung
+
+Ziel des Projekts ist die Entwicklung eines eingebetteten, auf Linux basierenden Systems, das auf einem Raspberry Pi 4 läuft und als Smarthome-Gateway agiert. Zu den Kernaufgaben gehören die Implementierung eines Systems, das per TFTP bootet, die Erstellung eines LED-Treibers sowie die Bereitstellung eines MQTT-Brokers, der Daten verschiedener Systemparameter veröffentlicht. Das System spannt zudem ein WLAN auf, das über ein Smartphone zur Steuerung der LED und zur Visualisierung der Systeminformationen genutzt wird. Die Umsetzung dieser Anforderungen wird durch die vorliegende Dokumentation unterstützt.
 
 \pagebreak
 
@@ -350,13 +358,25 @@ while true; do
 done
 ```
 
-# Systemtest
+# Tests
 
 ## Testplan
 
-Der Testplan ist relativ simpel. Im Sinne von *Rapid Prototyping* werden die Anforderungen an eine Komponente verschriftlicht (hier Teil der Aufgabenstellung) und dann wird diese implementiert. Im Anschluss wird geprüft ob alle Anforderungen erfüllt wurden und keine ungewünschten Nebeneffekte aufgetreten sind.
+In einem *Rapid Prototyping* Setting, wie es im Rahmen dieses Projekts der Fall ist, steht die schnelle Umsetzung und iterative Verbesserung des Systems im Vordergrund. Ein Testing-Ansatz in diesem Kontext muss flexibel und effizient sein, um den Entwicklungsprozess zu unterstützen.
 
-## Komponententest
+Der Testplan ist relativ simpel. Die Anforderungen an eine Komponente werden schriftlich festgehalten (in diesem Fall als Teil der Aufgabenstellung) und anschließend implementiert. Nach der Implementierung wird geprüft, ob alle Anforderungen erfüllt wurden und ob keine unerwünschten Nebeneffekte aufgetreten sind. Dieser pragmatische Ansatz stellt sicher, dass die Entwicklungszyklen kurz und effizient bleiben, ohne dabei die Qualität des Systems zu vernachlässigen.
+
+**Komponententests**
+
+Diese Tests überprüfen jede einzelne Komponente des Systems separat, um sicherzustellen, dass sie unabhängig und korrekt funktioniert, bevor sie in das Gesamtsystem integriert wird. Da das Projekt verschiedene Komponenten – wie den LED-Treiber, die WLAN-Konfiguration und den MQTT-Broker – umfasst, ist es entscheidend, dass jede dieser Komponenten ihre spezifischen Anforderungen erfüllt. Diese Tests helfen, Fehler und Inkonsistenzen frühzeitig zu identifizieren und zu beheben, bevor die Komponenten miteinander interagieren. Dies reduziert das Risiko, dass Probleme erst in einem späteren Stadium der Entwicklung auftreten, wenn sie schwerer zu beheben sind.
+
+**Systemtest**
+
+Neben den Komponententests wird das System als Ganzes überprüft, um sicherzustellen, dass es in der Praxis den Anforderungen gerecht wird. Dieser vollständige Systemtest umfasst alle Aspekte des Projekts – vom Booten des Systems über TFTP, der Konnektivität des WLANs, bis hin zur Steuerung und Visualisierung über das Smartphone. Durch diese Tests wird sichergestellt, dass das System nicht nur in isolierten Modulen, sondern auch in seiner Gesamtheit stabil und funktional ist.
+
+\pagebreak
+
+## Komponententests
 
 ### Boot und Entwicklung
 
@@ -374,9 +394,29 @@ Der Testplan ist relativ simpel. Im Sinne von *Rapid Prototyping* werden die Anf
 
 \pagebreak
 
-## Test des Gesamtsystems
+## Systemtest
 
-![Gerätetest: Setzen der Frequenz](res/device_test_1.png)
-![Gerätetest: Erfolg](res/device_test_2.png)
+![Systemtest: Setzen der Frequenz](res/device_test_1.png)
+![Systemtest: Erfolg](res/device_test_2.png)
+
+\pagebreak
 
 # Zusammenfassung
+
+**Aufgabenstellung**
+
+Das Ziel dieses Projekts war die Entwicklung eines eingebetteten Systems auf Basis von Linux, das auf einem Raspberry Pi 4 läuft und als Smarthome-Gateway agiert. Die zentralen Aufgaben umfassten die Implementierung eines Systems, das per TFTP bootet, die Entwicklung eines LED-Treibers zur Steuerung einer LED über GPIO-Pin's, und die Bereitstellung eines MQTT-Brokers, der verschiedene Systemparameter über das Netzwerk veröffentlicht. Darüber hinaus sollte das System ein WLAN-Netzwerk aufspannen, das es ermöglicht, die LED über ein Smartphone zu steuern und Systeminformationen zu visualisieren.
+
+**Inhalte**
+
+Das Projekt wurde Schritt für Schritt umgesetzt, beginnend mit der Konfiguration des Netzwerkboots über TFTP, wodurch der Raspberry Pi die notwendigen Bootdateien von einem TFTP-Server auf dem Host-Rechner bezieht. Als nächstes wurde das Userland mithilfe von Buildroot erstellt, während der Kernel separat kompiliert und angepasst wurde. Ein wichtiger Bestandteil war dort die Konfiguration des Raspberry Pi's als WLAN-Access-Point.
+
+Ein wesentliches Element des Projekts war die Entwicklung eines Gerätetreibers (Kernelmodul) zur Ansteuerung einer LED. Die Integration dieses Treibers ermöglicht es, die LED per MQTT fernzusteuern, wobei die Blinkfrequenz über ein spezifisches MQTT-Topic gesetzt werden kann. MQTT wurde durch die Integration des Mosquitto-Brokers realisiert.
+
+**Ergebnis**
+
+Das System läuft stabil und erfüllt die gestellten Anforderungen. Der Raspberry Pi kann erfolgreich über TFTP booten, das WLAN-Netzwerk aufspannen und die LED über MQTT steuern. Die LED reagiert korrekt auf die vom Smartphone gesendeten Befehle zur Einstellung der Blinkfrequenz, und alle relevanten Systeminformationen werden über das MQTT-Protokoll veröffentlicht und visualisiert. Die Integration der verschiedenen Systemkomponenten verlief erfolgreich, und das System zeigt keine unerwünschten Nebeneffekte.
+
+**Ausblick**
+
+Obwohl das Projekt erfolgreich abgeschlossen wurde, gibt es noch vielzählige Möglichkeiten für Erweiterungen und Optimierungen. Beispielsweise könnten Sensoren oder komplexere Aktoren in das System integriert werden, um die Funktionalität des Smarthome-Gateways zu erweitern. Das Projekt zeigt ja auch nur prototypisch, durch Toggeln eines einzelnen Pin's, die Fernsteuerungmöglichkeiten per MQTT. Zudem könnte die Sicherheit des Systems durch die Implementierung von Schutzmaßnahmen, wie etwa einer Nutzerauthorisierung in der MQTT-Kommunikation, verbessert werden.
